@@ -68,7 +68,7 @@ const LandingPage = () => {
                         <button onClick={() => document.getElementById('file-input').click()} className="btn-primary flex items-center gap-2">
                             Start Analysis <ArrowRight size={18} />
                         </button>
-                        <button className="btn-outline">View Demo</button>
+                        <button onClick={() => processFile({ name: 'Demo_RFP.pdf' })} className="btn-outline">View Demo</button>
                     </div>
                 </div>
 
