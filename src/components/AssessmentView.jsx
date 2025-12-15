@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle, AlertTriangle, XCircle, TrendingUp, Shield, Layers, Target } from 'lucide-react';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import { rfpService } from '../services/rfpService';
 import { useParams } from 'react-router-dom';
 
@@ -16,114 +17,133 @@ const AssessmentView = () => {
         });
     }, [id]);
 
-    if (loading) return <div className="text-slate-400 animate-pulse">Analyzing RFP criteria...</div>;
+    if (loading) return <div className="text-[#64748b] p-10 text-center">Loading analysis...</div>;
 
-    const getScoreColor = (score) => {
-        if (score >= 80) return 'text-green-400';
-        if (score >= 60) return 'text-yellow-400';
-        return 'text-red-400';
-    };
+    const pieData = [
+        { name: 'Business Strategy', value: scores.businessStrategy, color: '#2e1a47' },
+        { name: 'Core Offerings', value: scores.coreOfferings, color: '#00d4ff' },
+        { name: 'Resources', value: scores.resourceAvailability, color: '#10b981' },
+        { name: 'Risk', value: scores.riskCompliance, color: '#f59e0b' },
+    ];
 
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="space-y-8"
-        >
-            <div className="flex items-center justify-between">
-                <div>
-                    <h2 className="text-3xl font-bold text-white mb-2">Assessment Result</h2>
-                    <p className="text-slate-400">AI-driven analysis of fit and probability</p>
-                </div>
-                <div className={`
-          px-6 py-3 rounded-2xl border flex items-center gap-3 shadow-[0_0_30px_rgba(0,0,0,0.2)]
-          ${scores.recommendation === 'PURSUE' ? 'bg-green-500/10 border-green-500/20' : 'bg-red-500/10 border-red-500/20'}
-        `}>
-                    {scores.recommendation === 'PURSUE' ? <CheckCircle className="text-green-400" size={32} /> : <XCircle className="text-red-400" size={32} />}
-                    <div>
-                        <div className={`text-xs font-bold tracking-wider uppercase ${scores.recommendation === 'PURSUE' ? 'text-green-400' : 'text-red-400'}`}>
-                            Recommendation
+        <div className="space-y-8">
+            {/* Top Hero Section */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+                {/* Overall Score & Recommendation */}
+                <div className="col-span-1 bg-white p-8 rounded-2xl shadow-sm border border-[#e2e8f0] flex flex-col justify-center items-center text-center">
+                    <h3 className="text-[#64748b] font-medium uppercase tracking-wide text-sm mb-4">Overall Qualification</h3>
+                    <div className="relative mb-6">
+                        <div className="w-40 h-40 rounded-full border-8 border-[#f1f5f9] flex items-center justify-center">
+                            <span className="text-5xl font-bold text-[#2e1a47]">{scores.overallScore}</span>
                         </div>
-                        <div className="text-2xl font-bold text-white">{scores.recommendation}</div>
+                        <div className="absolute top-0 right-0">
+                            {scores.recommendation === 'PURSUE'
+                                ? <CheckCircle className="text-[#10b981] bg-white rounded-full" size={40} />
+                                : <XCircle className="text-[#ef4444] bg-white rounded-full" size={40} />
+                            }
+                        </div>
+                    </div>
+                    <div className={`px-6 py-2 rounded-full font-bold text-sm tracking-widest uppercase
+              ${scores.recommendation === 'PURSUE' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}
+           `}>
+                        {scores.recommendation}
+                    </div>
+                </div>
+
+                {/* Detailed Chart */}
+                <div className="col-span-2 bg-white p-8 rounded-2xl shadow-sm border border-[#e2e8f0]">
+                    <h3 className="text-[#1e293b] font-bold text-lg mb-6">Score Breakdown by Category</h3>
+                    <div className="h-64 w-full">
+                        <ResponsiveContainer width="100%" height="100%">
+                            <PieChart>
+                                <Pie
+                                    data={pieData}
+                                    cx="50%"
+                                    cy="50%"
+                                    innerRadius={60}
+                                    outerRadius={100}
+                                    paddingAngle={5}
+                                    dataKey="value"
+                                >
+                                    {pieData.map((entry, index) => (
+                                        <Cell key={`cell-${index}`} fill={entry.color} />
+                                    ))}
+                                </Pie>
+                                <Tooltip />
+                                <Legend verticalAlign="middle" align="right" layout="vertical" iconType="circle" />
+                            </PieChart>
+                        </ResponsiveContainer>
                     </div>
                 </div>
             </div>
 
+            {/* Insight Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <ScoreCard
-                    title="Business Strategy"
+                    title="Strategy"
                     score={scores.businessStrategy}
                     icon={Target}
-                    desc="Alignment with client goals"
+                    desc="Alignment with goals"
                 />
                 <ScoreCard
-                    title="Core Offerings"
+                    title="Offerings"
                     score={scores.coreOfferings}
                     icon={Layers}
-                    desc="Product/Service fit"
+                    desc="Product fit"
                 />
                 <ScoreCard
                     title="Resources"
                     score={scores.resourceAvailability}
                     icon={TrendingUp}
-                    desc="Capacity to deliver"
+                    desc="Team capacity"
                 />
                 <ScoreCard
-                    title="Risk & Compliance"
+                    title="Compliance"
                     score={scores.riskCompliance}
                     icon={Shield}
-                    desc="Legal/Security exposure"
+                    desc="Legal exposure"
                 />
             </div>
 
-            <div className="glass-panel p-8 rounded-2xl border border-slate-700/50">
-                <h3 className="text-xl font-semibold mb-6">Detailed Insights</h3>
+            <div className="bg-white p-8 rounded-2xl border border-[#e2e8f0] shadow-sm">
+                <h3 className="text-lg font-bold text-[#1e293b] mb-6">Key Insights & Risks</h3>
                 <div className="space-y-4">
-                    <div className="p-4 rounded-xl bg-slate-800/40 border-l-4 border-green-500">
-                        <h4 className="font-semibold text-green-300 mb-1 flex items-center gap-2"><CheckCircle size={16} /> Strong Alignment</h4>
-                        <p className="text-sm text-slate-300">The RFP prioritizes "User Experience Transformation", which matches our core "UX Studio" offering perfectly. Historical win rate for this category is 78%.</p>
+                    <div className="p-4 rounded-xl bg-[#f0fdf4] border-l-4 border-[#10b981] flex gap-4">
+                        <CheckCircle className="text-[#10b981] flex-shrink-0 mt-0.5" size={20} />
+                        <div>
+                            <h4 className="font-bold text-[#166534] mb-1">Strong Technical Match</h4>
+                            <p className="text-sm text-[#166534]">The client's AWS migration requirement aligns 100% with our core competency. Win probability increases by 15%.</p>
+                        </div>
                     </div>
-                    <div className="p-4 rounded-xl bg-slate-800/40 border-l-4 border-yellow-500">
-                        <h4 className="font-semibold text-yellow-300 mb-1 flex items-center gap-2"><AlertTriangle size={16} /> Potential Risk</h4>
-                        <p className="text-sm text-slate-300">Timeline requirement (3 months) is aggressive compared to our standard delivery model (4-5 months). Requires executive approval for expedited resourcing.</p>
+                    <div className="p-4 rounded-xl bg-[#fffbeb] border-l-4 border-[#f59e0b] flex gap-4">
+                        <AlertTriangle className="text-[#f59e0b] flex-shrink-0 mt-0.5" size={20} />
+                        <div>
+                            <h4 className="font-bold text-[#92400e] mb-1">Aggressive Timeline</h4>
+                            <p className="text-sm text-[#92400e]">Requested 3-month delivery is risky. Standard delivery is 5 months. Mitigation: Propose phased rollout.</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </motion.div>
+        </div>
     );
 };
 
 const ScoreCard = ({ title, score, icon: Icon, desc }) => {
     const isHigh = score >= 80;
-    const isMid = score >= 60 && score < 80;
-
-    const colorClass = isHigh ? 'text-green-400' : isMid ? 'text-yellow-400' : 'text-red-400';
-    const bgClass = isHigh ? 'bg-green-400' : isMid ? 'bg-yellow-400' : 'bg-red-400';
+    const colorClass = isHigh ? 'text-[#10b981]' : score >= 60 ? 'text-[#f59e0b]' : 'text-[#ef4444]';
 
     return (
-        <div className="glass-panel p-6 rounded-2xl relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300">
-            <div className={`absolute top-0 right-0 p-3 opacity-10 ${colorClass}`}>
-                <Icon size={80} />
+        <div className="bg-white p-6 rounded-xl border border-[#e2e8f0] hover:shadow-md transition-shadow">
+            <div className="flex justify-between items-start mb-4">
+                <div className={`p-3 rounded-lg bg-[#f8f9fc] text-[#64748b]`}>
+                    <Icon size={24} />
+                </div>
+                <span className={`text-2xl font-bold ${colorClass}`}>{score}%</span>
             </div>
-
-            <div className="relative z-10 flex flex-col h-full justify-between">
-                <div>
-                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-4 bg-slate-800/50 ${colorClass}`}>
-                        <Icon size={20} />
-                    </div>
-                    <h3 className="font-semibold text-slate-200 mb-1">{title}</h3>
-                    <p className="text-xs text-slate-500 mb-4">{desc}</p>
-                </div>
-
-                <div className="flex items-end gap-2">
-                    <span className={`text-4xl font-bold ${colorClass}`}>{score}</span>
-                    <span className="text-sm text-slate-500 mb-1.5">/ 100</span>
-                </div>
-
-                <div className="w-full bg-slate-700/50 h-1.5 rounded-full mt-4">
-                    <div className={`h-full rounded-full ${bgClass}`} style={{ width: `${score}%` }}></div>
-                </div>
-            </div>
+            <h4 className="font-bold text-[#1e293b]">{title}</h4>
+            <p className="text-xs text-[#94a3b8]">{desc}</p>
         </div>
     );
 };

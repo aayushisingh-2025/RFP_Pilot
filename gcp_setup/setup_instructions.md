@@ -14,7 +14,7 @@ This directory contains configuration for deploying the RFP Pilot App to Google 
 1.  **Initialize SDK**:
     ```bash
     gcloud init
-    gcloud config set project [YOUR_PROJECT_ID]
+    gcloud config set project rfp-accelerator-agent
     ```
 
 2.  **Submit Build**:
