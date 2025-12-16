@@ -32,18 +32,27 @@ const DraftView = () => {
 
     return (
         <div className="space-y-4">
-            <div className="flex justify-end gap-2">
-                <button onClick={handleSaveToDrive} disabled={saving} className="glass-btn flex items-center gap-2 text-neon-blue">
-                    <Save size={16} /> {saving ? 'Saving...' : 'Save to Drive'}
-                </button>
-                <button onClick={handleDownloadPDF} className="glass-btn flex items-center gap-2 text-white">
-                    <Download size={16} /> PDF
-                </button>
+            <div className="flex justify-between items-center bg-white/5 p-4 rounded-xl border border-white/5 backdrop-blur-sm">
+                <div className="flex items-center gap-2 text-sm text-text-secondary">
+                    <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                    AI Drafting Complete
+                </div>
+                <div className="flex gap-3">
+                    <button onClick={handleSaveToDrive} disabled={saving} className="aura-button flex items-center gap-2">
+                        <Save size={16} /> {saving ? 'Saving...' : 'Sync to Drive'}
+                    </button>
+                    <button onClick={handleDownloadPDF} className="aura-button secondary flex items-center gap-2">
+                        <Download size={16} /> Export PDF
+                    </button>
+                </div>
             </div>
 
-            <div className="glass-panel min-h-[600px] p-12">
+            <div className="aura-card min-h-[600px] p-12 bg-black/20 border-white/5 relative overflow-hidden group">
+                {/* Decorative corner glow */}
+                <div className="absolute top-0 right-0 w-64 h-64 bg-accent-primary/5 blur-[100px] rounded-full pointer-events-none group-hover:bg-accent-primary/10 transition-colors duration-500"></div>
+
                 <div
-                    className="prose prose-invert max-w-none outline-none font-serif text-white"
+                    className="prose prose-invert max-w-none outline-none font-serif text-white/90 relative z-10 leading-relaxed"
                     contentEditable
                     dangerouslySetInnerHTML={{ __html: content }}
                     onBlur={(e) => setContent(e.currentTarget.innerHTML)}

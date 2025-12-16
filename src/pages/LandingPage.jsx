@@ -14,14 +14,19 @@ const LandingPage = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center p-4">
-            <div className="max-w-2xl w-full">
-                <div className="text-center mb-10">
-                    <h1 className="text-4xl font-light text-white mb-3">RFP Pilot <span className="text-neon-blue font-medium">Workspace</span></h1>
-                    <p className="text-muted text-lg">Upload an empty RFP to generate intelligent responses using your knowledge base.</p>
+        <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+            {/* Ambient Background Glow */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-purple-600/20 blur-[120px] rounded-full pointer-events-none"></div>
+
+            <div className="max-w-md w-full relative z-10 animate-fadeIn">
+                <div className="text-center mb-8">
+                    <h1 className="text-5xl font-bold text-white mb-2 tracking-tight">
+                        RFP <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">Pilot</span>
+                    </h1>
+                    <p className="text-muted text-base">Intelligent Proposal Automation</p>
                 </div>
 
-                <div className="glass-panel p-12 text-center hover:shadow-md transition-shadow cursor-pointer group"
+                <div className="aura-card p-8 text-center"
                     onClick={() => document.getElementById('file-upload').click()}
                 >
                     <input
@@ -31,30 +36,24 @@ const LandingPage = () => {
                         onChange={(e) => handleUpload(e.target.files[0])}
                     />
 
-                    <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-white/20 transition-colors">
+                    <div className="w-20 h-20 bg-primary/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                         {uploading ? (
-                            <div className="w-6 h-6 border-2 border-neon-blue border-t-transparent rounded-full animate-spin"></div>
+                            <div className="w-8 h-8 border-2 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
                         ) : (
-                            <Upload className="text-neon-blue" size={32} />
+                            <Upload className="text-accent-primary" size={40} />
                         )}
                     </div>
 
-                    <h2 className="text-xl font-medium text-white mb-2">
-                        {uploading ? 'Processing RFP...' : 'Upload Empty RFP'}
+                    <h2 className="text-lg font-semibold text-white mb-2">
+                        {uploading ? 'Analyzing Document...' : 'Upload RFP Document'}
                     </h2>
-                    <p className="text-muted mb-6">Supported formats: PDF, Word, Excel</p>
+                    <p className="text-sm text-muted mb-8">Drag & drop or click to browse</p>
 
                     {!uploading && (
-                        <button className="glass-btn px-8 py-3 rounded-full font-medium hover:bg-neon-blue hover:text-black transition-colors">
-                            Select File
+                        <button className="aura-button w-full shadow-lg shadow-purple-500/25">
+                            Select Document
                         </button>
                     )}
-                </div>
-
-                <div className="mt-8 flex justify-center">
-                    <button onClick={() => handleUpload({ name: 'Demo.pdf' })} className="text-muted hover:text-white flex items-center gap-1 text-sm font-medium transition-colors">
-                        Try with a demo file <ChevronRight size={14} />
-                    </button>
                 </div>
             </div>
         </div>
