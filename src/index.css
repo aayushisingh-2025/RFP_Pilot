@@ -1,58 +1,42 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  /* Minimalist / NotebookLM Palette */
-  --bg-app: #f0f2f5;
-  --bg-sidebar: #ffffff;
-  --bg-card: #ffffff;
-
-  --text-primary: #1f1f1f;
-  /* Almost black */
-  --text-secondary: #5f6368;
-  /* Google Gray */
-  --text-accent: #1a73e8;
-  /* Google Blue */
-
-  --border-subtle: #dadce0;
-
-  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  --radius-card: 12px;
-}
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+  --font-family-sans: 'Roboto', 'Inter', system-ui, sans-serif;
+  --color-surface-pure: #ffffff;
+  --color-surface-subtle: #f0f2f5;
+  --color-text-primary: #202124;
+  --color-text-secondary: #5f6368;
+  --color-accent: #1a73e8;
+  --color-border: #dadce0;
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
-  background-color: var(--bg-app);
-  color: var(--text-primary);
+  margin: 0;
+  font-family: var(--font-family-sans);
+  background: var(--color-surface-subtle);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Hard reset for layout */
+#root {
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* NotebookLM specific utilities */
+.card-clean {
+  background: var(--color-surface-pure);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
   overflow: hidden;
 }
 
-/* Notebook Cards */
-.notebook-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-card);
-  transition: all 0.2s ease;
-}
-
-.notebook-card:hover {
-  box-shadow: var(--shadow-card);
-  transform: translateY(-2px);
-}
-
-/* Layout Utils */
-.flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.scroll-hidden::-webkit-scrollbar {
-  display: none;
+.nav-item-active {
+  background-color: #e8f0fe;
+  color: #1967d2;
+  font-weight: 500;
 }
