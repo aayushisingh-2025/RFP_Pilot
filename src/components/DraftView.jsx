@@ -28,22 +28,22 @@ const DraftView = () => {
         doc.save("RFP_Response_Draft.pdf");
     };
 
-    if (!content) return <div className="p-10 text-center text-[#5f6368]">Drafting response...</div>;
+    if (!content) return <div className="p-10 text-center text-muted">Drafting response...</div>;
 
     return (
         <div className="space-y-4">
             <div className="flex justify-end gap-2">
-                <button onClick={handleSaveToDrive} disabled={saving} className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-[#1a73e8] bg-[#e8f0fe] rounded-lg hover:bg-[#d2e3fc]">
+                <button onClick={handleSaveToDrive} disabled={saving} className="glass-btn flex items-center gap-2 text-neon-blue">
                     <Save size={16} /> {saving ? 'Saving...' : 'Save to Drive'}
                 </button>
-                <button onClick={handleDownloadPDF} className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-[#3c4043] border border-[#dadce0] rounded-lg hover:bg-[#f1f3f4]">
+                <button onClick={handleDownloadPDF} className="glass-btn flex items-center gap-2 text-white">
                     <Download size={16} /> PDF
                 </button>
             </div>
 
-            <div className="bg-white border border-[#dadce0] rounded-xl min-h-[600px] p-12 shadow-sm">
+            <div className="glass-panel min-h-[600px] p-12">
                 <div
-                    className="prose max-w-none outline-none font-serif text-[#3c4043]"
+                    className="prose prose-invert max-w-none outline-none font-serif text-white"
                     contentEditable
                     dangerouslySetInnerHTML={{ __html: content }}
                     onBlur={(e) => setContent(e.currentTarget.innerHTML)}

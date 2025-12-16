@@ -10,7 +10,7 @@ function App() {
   return (
     <Router>
       {/* Global App Container */}
-      <div className="font-sans text-slate-100 bg-[#0f172a] min-h-screen">
+      <div className="min-h-screen text-white">
         <Routes>
           <Route path="/" element={<LandingPage />} />
 

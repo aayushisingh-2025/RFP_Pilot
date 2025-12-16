@@ -9,18 +9,18 @@ const AssessmentView = () => {
         rfpService.getAssessment().then(setData);
     }, []);
 
-    if (!data) return <div className="text-center p-10 text-[#5f6368]">Analyzing fit with Intelia Strategy...</div>;
+    if (!data) return <div className="text-center p-10 text-muted">Analyzing fit with Intelia Strategy...</div>;
 
     return (
         <div className="space-y-6">
-            <div className="bg-[#e8f0fe] p-6 rounded-xl border border-[#d2e3fc] flex items-center justify-between">
+            <div className="glass-panel p-6 flex items-center justify-between bg-gradient-to-r from-blue-900/40 to-purple-900/40 border-neon-blue/30">
                 <div>
-                    <h2 className="text-lg font-medium text-[#174ea6]">Assessment Summary</h2>
-                    <p className="text-sm text-[#1967d2] mt-1">Based on Intelia Business Rules & Historical Wins</p>
+                    <h2 className="text-lg font-medium text-neon-blue">Assessment Summary</h2>
+                    <p className="text-sm text-white/80 mt-1">Based on Intelia Business Rules & Historical Wins</p>
                 </div>
                 <div className="text-right">
-                    <div className="text-3xl font-normal text-[#174ea6]">{data.overallScore}/100</div>
-                    <div className="text-xs font-medium uppercase tracking-wide text-[#1967d2] bg-white/50 px-2 py-1 rounded mt-1 inline-block">
+                    <div className="text-3xl font-normal text-white">{data.overallScore}/100</div>
+                    <div className="text-xs font-medium uppercase tracking-wide text-neon-blue bg-neon-blue/10 px-2 py-1 rounded mt-1 inline-block border border-neon-blue/20">
                         Qualified
                     </div>
                 </div>
@@ -28,19 +28,19 @@ const AssessmentView = () => {
 
             <div className="grid gap-4">
                 {data.sections.map((section) => (
-                    <div key={section.id} className="bg-white p-5 rounded-xl border border-[#dadce0] hover:shadow-sm transition-shadow">
+                    <div key={section.id} className="glass-card p-5">
                         <div className="flex items-start justify-between mb-3">
-                            <h3 className="font-medium text-[#202124]">{section.name}</h3>
-                            <span className={`text-sm font-bold ${section.score >= 80 ? 'text-[#137333]' : 'text-[#ea8600]'}`}>
+                            <h3 className="font-medium text-white">{section.name}</h3>
+                            <span className={`text-sm font-bold ${section.score >= 80 ? 'text-green-400' : 'text-orange-400'}`}>
                                 {section.score}%
                             </span>
                         </div>
 
                         {/* Source Citation */}
-                        <div className="flex items-center gap-2 text-xs text-[#5f6368] bg-[#f8f9fa] p-2 rounded-lg border border-[#f1f3f4] w-fit">
+                        <div className="flex items-center gap-2 text-xs text-muted bg-white/5 p-2 rounded-lg border border-white/10 w-fit">
                             <FileText size={12} />
                             <span>Source: {section.source}</span>
-                            <ArrowUpRight size={12} className="text-[#1a73e8] cursor-pointer" />
+                            <ArrowUpRight size={12} className="text-neon-blue cursor-pointer" />
                         </div>
                     </div>
                 ))}
