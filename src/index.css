@@ -1,42 +1,106 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
-  --font-family-sans: 'Roboto', 'Inter', system-ui, sans-serif;
-  --color-surface-pure: #ffffff;
-  --color-surface-subtle: #f0f2f5;
-  --color-text-primary: #202124;
-  --color-text-secondary: #5f6368;
-  --color-accent: #1a73e8;
-  --color-border: #dadce0;
-}
-
+/* Vanilla CSS Reset to bypass build errors */
 body {
   margin: 0;
-  font-family: var(--font-family-sans);
-  background: var(--color-surface-subtle);
-  color: var(--color-text-primary);
-  -webkit-font-smoothing: antialiased;
+  font-family: 'Roboto', 'Inter', system-ui, sans-serif;
+  background-color: #f0f2f5;
+  color: #202124;
 }
 
-/* Hard reset for layout */
-#root {
-  height: 100vh;
+/* Rebuilding core styles without Tailwind for stability */
+.flex {
   display: flex;
+}
+
+.flex-col {
   flex-direction: column;
 }
 
-/* NotebookLM specific utilities */
-.card-clean {
-  background: var(--color-surface-pure);
-  border: 1px solid var(--color-border);
-  border-radius: 12px;
-  overflow: hidden;
+.min-h-screen {
+  min-height: 100vh;
 }
 
-.nav-item-active {
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.max-w-2xl {
+  max-width: 42rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.bg-white {
+  background-color: white;
+}
+
+.rounded-2xl {
+  border-radius: 1rem;
+}
+
+.border {
+  border-width: 1px;
+}
+
+.p-12 {
+  padding: 3rem;
+}
+
+.p-4 {
+  padding: 1rem;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Custom Colors */
+.text-google-blue {
+  color: #1a73e8;
+}
+
+.bg-google-blue {
+  background-color: #1a73e8;
+}
+
+.text-google-gray {
+  color: #5f6368;
+}
+
+.bg-google-pale {
   background-color: #e8f0fe;
-  color: #1967d2;
-  font-weight: 500;
+}
+
+/* Sidebar Logic */
+.w-64 {
+  width: 16rem;
+}
+
+.h-screen {
+  height: 100vh;
+}
+
+.border-r {
+  border-right: 1px solid #dadce0;
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.hover\:shadow-md:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
