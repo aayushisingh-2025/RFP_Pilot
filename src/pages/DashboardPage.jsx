@@ -1,110 +1,96 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { FileText, PieChart, MessageSquare, ChevronLeft, Save, Share, Home, Settings } from 'lucide-react';
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Layout, FileText, CheckSquare, HelpCircle, HardDrive, Plus, ArrowLeft } from 'lucide-react';
+import { DRIVE_CONFIG } from '../services/rfpService';
 
 const DashboardPage = () => {
-    const { id } = useParams();
     const navigate = useNavigate();
-    const docName = "Global_IT_Transformation_RFP_v2.docx";
+    const location = useLocation();
 
-    const tabs = [
-        { id: 'assessment', label: 'Assessment', icon: PieChart, path: '' },
-        { id: 'draft', label: 'Draft Response', icon: FileText, path: 'draft' },
-        { id: 'questions', label: 'Client Questions', icon: MessageSquare, path: 'questions' },
+    const modules = [
+        { id: '', label: 'Assessment Matrix', icon: CheckSquare },
+        { id: 'response', label: 'RFP Response', icon: FileText },
+        { id: 'qna', label: 'Intelligent QnA', icon: HelpCircle },
+    ];
+
+    const sources = [
+        { name: 'Existing RFPs', folderId: DRIVE_CONFIG.SOURCES.EXISTING_RFPS },
+        { name: 'QnA Knowledge Base', folderId: DRIVE_CONFIG.SOURCES.QNA_KNOWLEDGE_BASE },
+        { name: 'Intelia Website', isLink: true }
     ];
 
     return (
-        <div className="flex bg-[#f8f9fc] min-h-screen font-sans">
-
-            {/* Sidebar - Fixed Left */}
-            <aside className="w-72 bg-white border-r border-[#e2e8f0] flex flex-col fixed h-full z-10 shadow-sm">
-                <div className="h-20 flex items-center px-8 border-b border-[#f1f5f9]">
-                    <div className="flex items-center gap-2 text-[#2e1a47] font-bold text-2xl">
-                        <span>RFP Pilot</span>
-                    </div>
+        <div className="flex h-screen bg-[#f0f2f5] text-[#1f1f1f] font-sans">
+            {/* Minimalist Sidebar */}
+            <aside className="w-64 bg-white border-r border-[#dadce0] flex flex-col p-4 z-10">
+                <div onClick={() => navigate('/')} className="cursor-pointer mb-8 flex items-center gap-2 text-[#5f6368] hover:text-[#1a73e8] transition-colors">
+                    <ArrowLeft size={18} />
+                    <span className="font-medium text-sm">Back to Home</span>
                 </div>
 
-                <nav className="p-4 space-y-2 flex-1">
-                    <NavLink to="/" className="flex items-center gap-3 px-4 py-3 text-[#64748b] hover:bg-[#f1f5f9] rounded-lg transition-colors mb-6">
-                        <Home size={20} />
-                        <span className="font-medium">Home</span>
-                    </NavLink>
+                <div className="mb-8">
+                    <h2 className="text-xs font-bold text-[#5f6368] uppercase tracking-wider mb-4 px-2">Workspace</h2>
+                    <nav className="space-y-1">
+                        {modules.map(mod => (
+                            <NavLink
+                                key={mod.id}
+                                to={mod.id}
+                                end={mod.id === ''}
+                                className={({ isActive }) => `
+                                    flex items-center gap-3 px-3 py-2 rounded-full text-sm font-medium transition-colors
+                                    ${isActive ? 'bg-[#e8f0fe] text-[#1a73e8]' : 'text-[#3c4043] hover:bg-[#f1f3f4]'}
+                                `}
+                            >
+                                <mod.icon size={18} />
+                                {mod.label}
+                            </NavLink>
+                        ))}
+                    </nav>
+                </div>
 
-                    <div className="px-4 mb-2">
-                        <span className="text-xs font-semibold text-[#94a3b8] uppercase tracking-widest">RFP Modules</span>
-                    </div>
-
-                    {tabs.map((tab) => (
-                        <NavLink
-                            key={tab.id}
-                            to={tab.path}
-                            end={tab.path === ''}
-                            className={({ isActive }) => `
-                flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
-                ${isActive
-                                    ? 'bg-[#2e1a47] text-white shadow-md shadow-indigo-500/20'
-                                    : 'text-[#64748b] hover:bg-[#f1f5f9] hover:text-[#2e1a47]'}
-              `}
-                        >
-                            <tab.icon size={20} />
-                            <span className="font-medium">{tab.label}</span>
-                        </NavLink>
-                    ))}
-                </nav>
-
-                <div className="p-6 border-t border-[#f1f5f9] bg-[#f8fafc]">
-                    <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-[#00d4ff] flex items-center justify-center text-[#2e1a47] font-bold">
-                            AS
-                        </div>
-                        <div className="flex-1 min-w-0">
-                            <p className="text-sm font-bold text-[#1e293b] truncate">Aayushi Singh</p>
-                            <p className="text-xs text-[#64748b]">Sales Lead</p>
-                        </div>
-                        <Settings size={18} className="text-[#94a3b8] cursor-pointer hover:text-[#2e1a47]" />
+                <div className="flex-1 overflow-y-auto">
+                    <h2 className="text-xs font-bold text-[#5f6368] uppercase tracking-wider mb-4 px-2">Sources (Drive)</h2>
+                    <div className="space-y-2">
+                        {sources.map((src, idx) => (
+                            <div key={idx} className="flex items-center gap-3 px-3 py-2 rounded-lg border border-[#dadce0] bg-white cursor-pointer hover:bg-[#f8f9fa]">
+                                <HardDrive size={16} className="text-[#5f6368]" />
+                                <div className="min-w-0">
+                                    <p className="text-xs font-medium text-[#3c4043] truncate">{src.name}</p>
+                                    <p className="text-[10px] text-[#5f6368] truncate">
+                                        {src.isLink ? 'External Link' : 'Google Drive'}
+                                    </p>
+                                </div>
+                            </div>
+                        ))}
+                        <button className="w-full flex items-center justify-center gap-2 py-2 text-xs font-medium text-[#1a73e8] border border-dashed border-[#dadce0] rounded-lg hover:bg-[#f1f3f4]">
+                            <Plus size={14} /> Add Source
+                        </button>
                     </div>
                 </div>
             </aside>
 
-            {/* Main Content - Scrollable Right */}
-            <div className="flex-1 ml-72 flex flex-col min-h-screen">
-
-                {/* Top Header */}
-                <header className="h-20 bg-white border-b border-[#e2e8f0] flex items-center justify-between px-8 shadow-sm text-[#1e293b] sticky top-0 z-20">
-                    <div className="flex items-center gap-4">
-                        <div className="p-2 bg-[#f1f5f9] rounded-lg">
-                            <FileText size={24} className="text-[#2e1a47]" />
-                        </div>
-                        <div>
-                            <h2 className="font-bold text-lg">{docName}</h2>
-                            <div className="flex items-center gap-2 text-xs text-[#64748b]">
-                                <span className="w-2 h-2 rounded-full bg-green-500"></span>
-                                Processing Complete
-                                <span>•</span>
-                                Last updated 2 mins ago
-                            </div>
-                        </div>
-                    </div>
-
+            {/* Main Content Area */}
+            <main className="flex-1 overflow-hidden flex flex-col relative">
+                <header className="h-16 bg-white border-b border-[#dadce0] flex items-center justify-between px-8 flex-shrink-0">
+                    <h1 className="text-xl font-normal text-[#1f1f1f]">
+                        {/* Dynamic Title based on Route */}
+                        {location.pathname.includes('response') ? 'Draft Response' :
+                            location.pathname.includes('qna') ? 'Client QnA' : 'Assessment'}
+                    </h1>
                     <div className="flex items-center gap-3">
-                        <button className="btn-outline flex items-center gap-2">
-                            <Save size={18} /> Save Draft
-                        </button>
-                        <button className="btn-primary flex items-center gap-2">
-                            <Share size={18} /> Export
-                        </button>
+                        <div className="px-3 py-1 bg-[#e6f4ea] text-[#137333] text-xs font-medium rounded-full flex items-center gap-1">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#137333]"></span>
+                            Auto-saved to Drive
+                        </div>
                     </div>
                 </header>
 
-                {/* Page Content */}
-                <main className="flex-1 p-8 overflow-y-auto">
-                    <div className="max-w-6xl mx-auto">
+                <div className="flex-1 overflow-y-auto p-8">
+                    <div className="max-w-4xl mx-auto pb-20">
                         <Outlet />
                     </div>
-                </main>
-
-            </div>
+                </div>
+            </main>
         </div>
     );
 };
