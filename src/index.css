@@ -1,73 +1,49 @@
-/* Font Import */
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+/* Font Import - Plus Jakarta Sans for a modern SaaS look */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 
 :root {
-  /* Aura Theme Variables */
-  --bg-primary: #030014;
-  --bg-secondary: #0f0728;
-  --accent-primary: #7000ff;
-  --accent-secondary: #00c3ff;
-  --accent-glow: rgba(112, 0, 255, 0.5);
+  /* Google Brand Colors */
+  --google-blue: #4285F4;
+  --google-red: #EA4335;
+  --google-yellow: #FBBC05;
+  --google-green: #34A853;
 
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-surface: rgba(255, 255, 255, 0.03);
-  --glass-highlight: rgba(255, 255, 255, 0.1);
+  /* Brilliance Dark Theme Colors */
+  --bg-page: #0B0F19;
+  /* Deep Navy/Black */
+  --bg-card: #141A26;
+  /* Slightly lighter navy */
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-highlight: rgba(66, 133, 244, 0.3);
+  /* Google Blue tint */
 
-  --text-primary: #ffffff;
-  --text-secondary: #94a3b8;
-  --text-accent: #e2d9fd;
+  --text-main: #FFFFFF;
+  --text-muted: #94A3B8;
 
-  --font-main: 'Outfit', sans-serif;
+  --glow-primary: rgba(66, 133, 244, 0.5);
 }
 
 body {
   margin: 0;
-  font-family: var(--font-main);
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  overflow-x: hidden;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-page);
+  color: var(--text-main);
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
-/* Aura Background Effect */
+/* Background Grid Effect */
 body::before {
   content: '';
   position: fixed;
-  top: -20%;
-  left: -10%;
-  width: 60%;
-  height: 60%;
-  background: radial-gradient(circle, var(--accent-primary) 0%, transparent 70%);
-  opacity: 0.15;
-  filter: blur(120px);
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(circle at center, black, transparent 80%);
+  pointer-events: none;
   z-index: -1;
-  animation: pulse-aura 15s infinite alternate;
-}
-
-body::after {
-  content: '';
-  position: fixed;
-  bottom: -20%;
-  right: -10%;
-  width: 60%;
-  height: 60%;
-  background: radial-gradient(circle, var(--accent-secondary) 0%, transparent 70%);
-  opacity: 0.15;
-  filter: blur(120px);
-  z-index: -1;
-  animation: pulse-aura 20s infinite alternate-reverse;
-}
-
-@keyframes pulse-aura {
-  0% {
-    transform: scale(1);
-    opacity: 0.15;
-  }
-
-  100% {
-    transform: scale(1.2);
-    opacity: 0.25;
-  }
 }
 
 /* Utilities */
@@ -91,78 +67,8 @@ body::after {
   justify-content: space-between;
 }
 
-.justify-end {
-  justify-content: flex-end;
-}
-
-.gap-2 {
-  gap: 0.5rem;
-}
-
-.gap-3 {
-  gap: 0.75rem;
-}
-
-.gap-4 {
-  gap: 1rem;
-}
-
-.gap-6 {
-  gap: 1.5rem;
-}
-
-.p-4 {
-  padding: 1rem;
-}
-
-.p-6 {
-  padding: 1.5rem;
-}
-
-.p-8 {
-  padding: 2rem;
-}
-
-.px-4 {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
-.py-2 {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-}
-
-.mb-2 {
-  margin-bottom: 0.5rem;
-}
-
-.mb-4 {
-  margin-bottom: 1rem;
-}
-
-.mb-6 {
-  margin-bottom: 1.5rem;
-}
-
-.mb-8 {
-  margin-bottom: 2rem;
-}
-
-.mt-1 {
-  margin-top: 0.25rem;
-}
-
-.mt-4 {
-  margin-top: 1rem;
-}
-
 .w-full {
   width: 100%;
-}
-
-.h-full {
-  height: 100%;
 }
 
 .h-screen {
@@ -173,164 +79,6 @@ body::after {
   min-height: 100vh;
 }
 
-.text-center {
-  text-align: center;
-}
-
-.font-bold {
-  font-weight: 700;
-}
-
-.font-medium {
-  font-weight: 500;
-}
-
-.text-xs {
-  font-size: 0.75rem;
-}
-
-.text-sm {
-  font-size: 0.875rem;
-}
-
-.text-base {
-  font-size: 1rem;
-}
-
-.text-lg {
-  font-size: 1.125rem;
-}
-
-.text-xl {
-  font-size: 1.25rem;
-}
-
-.text-2xl {
-  font-size: 1.5rem;
-}
-
-.text-3xl {
-  font-size: 1.875rem;
-}
-
-.text-4xl {
-  font-size: 2.25rem;
-}
-
-.text-muted {
-  color: var(--text-secondary);
-}
-
-.text-white {
-  color: var(--text-primary);
-}
-
-/* Aura Components */
-.aura-card {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
-  border: 1px solid var(--glass-border);
-  border-radius: 16px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.aura-card:hover {
-  border-color: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 0 20px rgba(112, 0, 255, 0.15);
-  transform: translateY(-2px);
-}
-
-.aura-button {
-  background: linear-gradient(90deg, #5b21b6 0%, #7c3aed 100%);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 0.75rem 1.5rem;
-  font-weight: 500;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s;
-  box-shadow: 0 0 10px rgba(124, 58, 237, 0.3);
-}
-
-.aura-button:hover {
-  background: linear-gradient(90deg, #4c1d95 0%, #6d28d9 100%);
-  box-shadow: 0 0 20px rgba(124, 58, 237, 0.6);
-}
-
-.aura-button:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
-.aura-button.secondary {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--glass-border);
-  box-shadow: none;
-}
-
-.aura-button.secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
-}
-
-.aura-input {
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid var(--glass-border);
-  border-radius: 8px;
-  color: white;
-  padding: 0.75rem;
-  width: 100%;
-  outline: none;
-  transition: all 0.2s;
-}
-
-.aura-input:focus {
-  border-color: var(--accent-primary);
-  box-shadow: 0 0 0 2px rgba(112, 0, 255, 0.2);
-}
-
-/* Navigation */
-.nav-item {
-  color: var(--text-secondary);
-  border-radius: 8px;
-  transition: all 0.2s;
-}
-
-.nav-item:hover,
-.nav-item.active {
-  color: white;
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.nav-item.active {
-  background: linear-gradient(90deg, rgba(112, 0, 255, 0.1) 0%, transparent 100%);
-  border-left: 2px solid var(--accent-primary);
-}
-
-/* Animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fadeIn {
-  animation: fadeIn 0.5s ease-out forwards;
-}
-
-.hidden {
-  display: none;
-}
-
 .relative {
   position: relative;
 }
@@ -339,32 +87,213 @@ body::after {
   position: absolute;
 }
 
-.z-10 {
-  z-index: 10;
+.text-center {
+  text-align: center;
 }
 
-.overflow-hidden {
-  overflow: hidden;
+.hidden {
+  display: none;
 }
 
-.overflow-y-auto {
-  overflow-y: auto;
+.p-4 {
+  padding: 1rem;
 }
 
-.flex-1 {
-  flex: 1;
+.p-8 {
+  padding: 2rem;
 }
 
-.rounded-full {
-  border-radius: 9999px;
+.gap-2 {
+  gap: 0.5rem;
 }
 
-.border-b {
-  border-bottom: 1px solid var(--glass-border);
+.gap-4 {
+  gap: 1rem;
 }
 
-.border-r {
-  border-right: 1px solid var(--glass-border);
+/* Brilliance Components */
+
+/* 1. The Card: High fidelity, crisp borders */
+.b-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.b-card:hover {
+  border-color: var(--border-highlight);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  transform: translateY(-1px);
+}
+
+/* 2. The Buttons: Google Colors */
+.b-btn {
+  background: var(--google-blue);
+  color: white;
+  border: none;
+  height: 48px;
+  padding: 0 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
+}
+
+.b-btn:hover {
+  background: #3367D6;
+  /* Darker Blue */
+  transform: translateY(-1px);
+}
+
+.b-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.b-btn.secondary {
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  box-shadow: none;
+}
+
+.b-btn.secondary:hover {
+  border-color: var(--text-muted);
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* 3. Inputs */
+.b-input {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: white;
+  width: 100%;
+  outline: none;
+  transition: 0.2s;
+}
+
+.b-input:focus {
+  border-color: var(--google-blue);
+  box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.15);
+}
+
+/* 4. Sidebar */
+.b-sidebar {
+  background: #0F131F;
+  /* Slightly darker than card */
+  border-right: 1px solid var(--border-subtle);
+}
+
+/* 5. Navigation Items */
+.b-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: 0.2s;
+}
+
+.b-nav-item:hover {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-main);
+}
+
+/* Active State with Google Blue Indicator */
+.b-nav-item.active {
+  background: rgba(66, 133, 244, 0.1);
+  color: var(--google-blue);
+}
+
+/* Typography Helpers */
+.text-h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.text-h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.text-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+/* Google Color Utilities */
+.text-g-blue {
+  color: var(--google-blue);
+}
+
+.text-g-red {
+  color: var(--google-red);
+}
+
+.text-g-yellow {
+  color: var(--google-yellow);
+}
+
+.text-g-green {
+  color: var(--google-green);
+}
+
+.bg-g-blue-subtle {
+  background: rgba(66, 133, 244, 0.1);
+  border: 1px solid rgba(66, 133, 244, 0.2);
+}
+
+.bg-g-green-subtle {
+  background: rgba(52, 168, 83, 0.1);
+  border: 1px solid rgba(52, 168, 83, 0.2);
+}
+
+.bg-g-red-subtle {
+  background: rgba(234, 67, 53, 0.1);
+  border: 1px solid rgba(234, 67, 53, 0.2);
+}
+
+.bg-g-yellow-subtle {
+  background: rgba(251, 188, 5, 0.1);
+  border: 1px solid rgba(251, 188, 5, 0.2);
+}
+
+/* Animations */
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Scrollbar */
@@ -372,45 +301,17 @@ body::after {
   width: 6px;
 }
 
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
+  background: #333;
+  border-radius: 3px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
+/* Layout Helpers */
+.max-w-md {
+  max-width: 28rem;
 }
 
-/* Specific Colors */
-.text-accent-primary {
-  color: #a78bfa;
-}
-
-.text-accent-cyan {
-  color: #22d3ee;
-}
-
-.text-green-400 {
-  color: #4ade80;
-}
-
-.text-orange-400 {
-  color: #fb923c;
-}
-
-.bg-primary\/20 {
-  background: rgba(112, 0, 255, 0.2);
-}
-
-.bg-cyan\/20 {
-  background: rgba(0, 195, 255, 0.2);
-}
-
-/* Standardize */
-* {
-  box-sizing: border-box;
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
 }

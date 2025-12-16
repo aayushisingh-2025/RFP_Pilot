@@ -28,31 +28,31 @@ const DraftView = () => {
         doc.save("RFP_Response_Draft.pdf");
     };
 
-    if (!content) return <div className="p-10 text-center text-muted">Drafting response...</div>;
+    if (!content) return <div className="p-10 text-center text-[#94A3B8]">Drafting response...</div>;
 
     return (
         <div className="space-y-4">
-            <div className="flex justify-between items-center bg-white/5 p-4 rounded-xl border border-white/5 backdrop-blur-sm">
-                <div className="flex items-center gap-2 text-sm text-text-secondary">
-                    <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+            <div className="flex justify-between items-center bg-[#1A202C] p-4 rounded-xl border border-[rgba(255,255,255,0.05)]">
+                <div className="flex items-center gap-2 text-sm text-[#94A3B8]">
+                    <span className="w-2 h-2 rounded-full bg-[#34A853] animate-pulse"></span>
                     AI Drafting Complete
                 </div>
                 <div className="flex gap-3">
-                    <button onClick={handleSaveToDrive} disabled={saving} className="aura-button flex items-center gap-2">
+                    <button onClick={handleSaveToDrive} disabled={saving} className="b-btn flex items-center gap-2">
                         <Save size={16} /> {saving ? 'Saving...' : 'Sync to Drive'}
                     </button>
-                    <button onClick={handleDownloadPDF} className="aura-button secondary flex items-center gap-2">
+                    <button onClick={handleDownloadPDF} className="b-btn secondary flex items-center gap-2">
                         <Download size={16} /> Export PDF
                     </button>
                 </div>
             </div>
 
-            <div className="aura-card min-h-[600px] p-12 bg-black/20 border-white/5 relative overflow-hidden group">
+            <div className="b-card min-h-[600px] p-12 bg-[#0F131F] border-[rgba(255,255,255,0.05)] relative overflow-hidden group">
                 {/* Decorative corner glow */}
-                <div className="absolute top-0 right-0 w-64 h-64 bg-accent-primary/5 blur-[100px] rounded-full pointer-events-none group-hover:bg-accent-primary/10 transition-colors duration-500"></div>
+                <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 blur-[100px] rounded-full pointer-events-none"></div>
 
                 <div
-                    className="prose prose-invert max-w-none outline-none font-serif text-white/90 relative z-10 leading-relaxed"
+                    className="prose prose-invert max-w-none outline-none font-serif text-[#E2E8F0] relative z-10 leading-relaxed"
                     contentEditable
                     dangerouslySetInnerHTML={{ __html: content }}
                     onBlur={(e) => setContent(e.currentTarget.innerHTML)}

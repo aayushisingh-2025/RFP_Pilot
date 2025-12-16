@@ -22,14 +22,14 @@ const DashboardPage = () => {
     return (
         <div className="flex h-screen text-white font-sans overflow-hidden">
             {/* Dashboard Sidebar */}
-            <aside className="w-64 border-r border-white/5 flex flex-col p-4 z-10 bg-black/40 backdrop-blur-xl">
-                <div onClick={() => navigate('/')} className="cursor-pointer mb-8 flex items-center gap-2 text-white/50 hover:text-white transition-colors">
+            <aside className="w-64 b-sidebar flex flex-col p-4 z-10">
+                <div onClick={() => navigate('/')} className="cursor-pointer mb-8 flex items-center gap-2 text-[#94A3B8] hover:text-white transition-colors">
                     <ArrowLeft size={16} />
-                    <span className="font-medium text-sm">Return Home</span>
+                    <span className="font-medium text-sm">Main Menu</span>
                 </div>
 
                 <div className="mb-8 flex-1">
-                    <h2 className="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em] mb-4 px-3">Start</h2>
+                    <h2 className="text-label mb-4 px-3">Pilot Tools</h2>
                     <nav className="space-y-1">
                         {modules.map(mod => (
                             <NavLink
@@ -37,8 +37,7 @@ const DashboardPage = () => {
                                 to={mod.id}
                                 end={mod.id === ''}
                                 className={({ isActive }) => `
-                                    flex items-center gap-3 px-3 py-2 rounded-full text-sm font-medium transition-colors
-                                    ${isActive ? 'bg-white/10 text-neon-blue' : 'text-muted hover:bg-white/5 hover:text-white'}
+                                    b-nav-item ${isActive ? 'active' : ''}
                                 `}
                             >
                                 <mod.icon size={18} />
@@ -53,14 +52,14 @@ const DashboardPage = () => {
 
             {/* Main Content Area */}
             <main className="flex-1 flex flex-col relative z-0">
-                <header className="h-16 flex items-center justify-between px-8 flex-shrink-0">
-                    <h1 className="text-xl font-medium text-white animate-fadeIn">
+                <header className="h-16 flex items-center justify-between px-8 flex-shrink-0 border-b border-[rgba(255,255,255,0.05)]">
+                    <h1 className="text-xl font-semibold text-white animate-fade-in tracking-tight">
                         {/* Dynamic Title based on Route */}
                         {location.pathname.includes('response') ? 'Draft Response' :
                             location.pathname.includes('qna') ? 'Client QnA' : 'Assessment'}
                     </h1>
                     <div className="flex items-center gap-3">
-                        <div className="px-3 py-1 bg-green-500/10 text-green-400 text-[10px] font-bold uppercase tracking-wider rounded border border-green-500/20">
+                        <div className="px-3 py-1 bg-g-green-subtle text-g-green text-[10px] font-bold uppercase tracking-wider rounded">
                             Auto-sync Active
                         </div>
                     </div>
